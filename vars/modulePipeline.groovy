@@ -29,14 +29,14 @@ def call(body){
 				
 				rtUpload(
 					serverId: "local-artifactory",
-					spec: """
-						"files" : [
+					spec: """{
+						"files": [
 							{
-								"pattern" : "build/libs/*.jar",
-								"target" : "test-repo/my-builds/$inputParams.gitBranch/${BUILD_NUMBER}"
+								"pattern": "build/libs/*.jar",
+								"target": "test-repo/example-shared-library-pipeline/jar/$inputParams.gitBranch/${BUILD_NUMBER}/"
 							}
 						]
-					"""
+					}"""
 				)
 			}
 		}
