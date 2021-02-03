@@ -42,19 +42,21 @@ def call(body) {
 				"""
 				
 				jobDslExecute("""
-					pipelineJob("$jobName"){
+					pipelineJob('$jobName') {
 						description '\"$jobName\" pipeline'
-						
+													
 						definition {
 							cps {
 								script(\"\"\"$scriptText\"\"\")
 								sandbox(true)
-							}
+							}						
 						}
-						
+							
 						logRotator {
 							numToKeep(5)
-					}
+						}
+							
+					}		
 				""")
 				
 			}
