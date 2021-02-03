@@ -21,7 +21,7 @@ def call(body) {
 		
 		stage('Update Module Jobs'){
 			List branches = new GitHelper(this).getBranches()
-			echo branches
+			echo branches.toString()
 		}
 	}
 }
