@@ -22,6 +22,47 @@ def call(body) {
 		stage('Update Module Jobs'){
 			List branches = new GitHelper(this).getBranches()
 			echo branches.toString()
+			
+			jobDslExecute("""
+				folder('module'){
+					description 'Forlder for module pipelines'
+					displayName '$inputParams.modulePipelineName'
+				}
+			""")
+			
+			branches.each { branch ->
+				String jobName = "module/" + branch.replace("/", "_")
+				
+				String scriptText = """
+					modulePipeline {
+						gitBranch = "$branch"
+						repoUrl = "$inputParams.repoUrl"
+						artifactoryCredentialsId = "$inputParams.artifactoryCredentialsId"
+					}
+				"""
+				
+				jobDslExecute("""
+					pipelineJob("$jobName"){
+						description '\"$jobName\" pipeline'
+						
+						definition {
+							cps {
+								script(\"\"\"$scriptText\"\"\")
+								sandbox(true)
+							}
+						}
+						
+						logRotator {
+							numToKeep(5)
+					}
+				""")
+				
+			}
 		}
 	}
+}
+
+private void jobDslExecute(String jobDslScript) {
+	echo jobDslScript
+	jobDsl scriptText: jobDslScript
 }

@@ -10,7 +10,7 @@ class GitHelper {
 	List getBranches(){
 		
 		String remoteBranches = script.bat(returnStdout : true, script : '@echo off | git branch -a | findstr \"remotes/origin\"')
-		remoteBranches = remoteBranches.replace("renites/origin/", "")
+		remoteBranches = remoteBranches.replace("remotes/origin/", "")
 		
 		List result = []
 		
