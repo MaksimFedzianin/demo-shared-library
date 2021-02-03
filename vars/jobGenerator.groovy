@@ -64,17 +64,21 @@ def call(body) {
 		
 		stage('Run Module Jobs'){
 			try {
-				jenkins.model.Jenkins.instance.getAllItems(Job.class).each {
-					if(!it.fullName.startsWith("module/")){
+				jenkins.model.Jenkins.instance.getAllItems(Job.class).each{
+
+					if (!it.fullName.startsWith('module/')) {
 						return;
 					}
-					
-					if(it.getBuild().size() == 0){
-						build job: it.fullName, quietPeriod : 0, wait : false
+
+					if (it.getBuilds().size() == 0) {
+						println("Starting job $it.fullName")
+
+						build job: it.fullName, quietPeriod: 0, wait: false;
 					}
+
 				}
 			} catch (err) {
-					echo "failed"
+				echo "failed to run job : $err"
 			}
 		}
 	}
