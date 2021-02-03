@@ -8,7 +8,10 @@ def call(body){
 	
 	node {
 		stage('Checkout') {
-			git: (url : inputParams.repoUrl, branch : inputParams.gitBranch)
+			git(
+					url          : inputParams.repoUrl,
+					branch       : inputParams.gitBranch
+				)
 		}
 		stage('Build'){
 			bat 'gradlew clean build -x test'
