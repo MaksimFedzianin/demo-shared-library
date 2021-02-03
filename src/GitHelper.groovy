@@ -1,10 +1,10 @@
 class GitHelper {
 
-	private final Script
+	private final Script script
 
-		GitHelper(Script script){
-			this.script = script
-		}
+	GitHelper(Script script){
+		this.script = script
+	}
 		
 
 	List getBranches(){
